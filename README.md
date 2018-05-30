@@ -1,5 +1,11 @@
 # AngularAuthenticationDemo
 
+To setup Firebase copy the configuration and replace the values in `projects/firebase-app/src/assets/config/env.json`
+
+```
+cp projects/firebase-app/src/env.sample.json projects/firebase-app/src/assets/config/env.json
+```
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.5.
 
 ## Development server
