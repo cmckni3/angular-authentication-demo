@@ -1,12 +1,45 @@
-<div *ngIf="afAuth.user | async as user; else showLogin">
-  <h1>Hello {{ user.displayName }}!</h1>
-  <img *ngIf="user.photoURL"
-       height="75%"
-       [src]="user.photoURL" />
-  <br />
-  <button (click)="logout()">Logout</button>
-</div>
-<ng-template #showLogin>
-  <p>Login.</p>
-  <button (click)="login()">Login with Google</button>
-</ng-template>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand"
+     href="#">Angular Firebase Demo</a>
+</nav>
+
+<main role="main"
+      class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Angular Firebase Demo</h1>
+    </div>
+  </div>
+  <div class="row">
+    <ng-template #showLogin>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary"
+                  (click)="login()">Login with Google</button>
+        </div>
+      </div>
+    </ng-template>
+    <ng-container *ngIf="afAuth.user | async as user; else showLogin">
+      <div class="row">
+        <div class="col">
+          <h3>Hello {{ user.displayName }}!</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <img *ngIf="user.photoURL"
+               height="40"
+               [src]="user.photoURL" />
+        </div>
+        <div class="col">
+          <button class="btn btn-danger"
+                  (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div>
+
+  </div>
+
+</main>
