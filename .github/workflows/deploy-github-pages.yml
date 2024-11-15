@@ -1,0 +1,37 @@
+name: Deploy demo to GitHub pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ['master']
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    # Recommended if you intend to make multiple deployments in quick succession.
+    concurrency: ci-${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 6.x
+
+      - name: Install and Build 🔧
+        run: |
+          echo "Installing dependencies"
+          yarn install
+          echo "Building demo..."
+          yarn build -- --base-href /${{ github.event.repository.name }}/
+          cp dist/index.html dist/404.html
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.3
+        with:
+          branch: gh-pages
+          folder: dist
+          git-config-name: github-actions[bot]
+          git-config-email: github-actions[bot]@users.noreply.github.com
